@@ -1,0 +1,25 @@
+{
+  "name": "assert-no-throw",
+  "version": "1.0.0",
+  "description": "Take an assertion library and return an assertion library that doesn't throw",
+  "main": "index.js",
+  "scripts": {
+    "test": "node test.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/TehShrike/assert-no-throw.git"
+  },
+  "keywords": [
+    "assert",
+    "throw",
+    "log",
+    "test"
+  ],
+  "author": "TehShrike",
+  "license": "WTFPL",
+  "bugs": {
+    "url": "https://github.com/TehShrike/assert-no-throw/issues"
+  },
+  "homepage": "https://github.com/TehShrike/assert-no-throw#readme"
+}
