@@ -1,5 +1,20 @@
 const EventEmitter = require('eventemitter3')
 
+const messageIndex = {
+	ok: 1,
+	equal: 2,
+	notEqual: 2,
+	strictEqual: 2,
+	notStrictEqual: 2,
+	deepEqual: 2,
+	notDeepEqual: 2,
+	deepStrictEqual: 2,
+	notDeepStrictEqual: 2,
+	fail: 2,
+	throws: 2,
+	doesNotThrow: 1,
+}
+
 module.exports = function wrapAssertionLibrary(rawAssert) {
 	const coolAssert = new EventEmitter()
 	coolAssert.results = []
@@ -12,23 +27,24 @@ module.exports = function wrapAssertionLibrary(rawAssert) {
 
 	Object.keys(rawAssert).forEach(method => {
 		coolAssert.assert[method] = function(...args) {
+			const message = args[messageIndex[method]]
 			try {
 				rawAssert[method](...args)
 			} catch (err) {
-				report(makeErrorObject(method, err))
+				report(makeErrorObject(method, err, message))
 				return
 			}
-			report(makeSuccessObject(method))
+			report(makeSuccessObject(method, message))
 		}
 	})
 
 	return coolAssert
 }
 
-function makeErrorObject(method, error) {
-	return { method, pass: false, error }
+function makeErrorObject(method, error, message) {
+	return { method, pass: false, error, message }
 }
 
-function makeSuccessObject(method) {
-	return { method, pass: true }
+function makeSuccessObject(method, message) {
+	return { method, pass: true, message }
 }

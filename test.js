@@ -36,3 +36,13 @@ test('events', t => {
 
 	t.end()
 })
+
+test('assert with descriptions', t => {
+	const assertWrapper = noThrow(rawAssert)
+
+	assertWrapper.assert.ok(false, 'descriptive')
+
+	t.equal(assertWrapper.results[0].message, 'descriptive')
+
+	t.end()
+})
